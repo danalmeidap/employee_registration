@@ -1,8 +1,9 @@
-from typing import Optional
-from sqlmodel import SQLModel, Field
-from pydantic import validator
-from enum import Enum
 from datetime import datetime
+from enum import Enum
+from typing import Optional
+
+from pydantic import validator
+from sqlmodel import Field, SQLModel
 
 
 class Gender(Enum):

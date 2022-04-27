@@ -1,20 +1,29 @@
-from operations import validate_gender, validate_index, \
-    validate_wage, validate_age
+from time import sleep
 from typing import List
-from models import Gender, Employee
-from core import add_employee_to_database, get_employees_from_database, \
-    get_employee_from_database, update_employee_wage, update_employee_age, delete_employee_from_database
+
+from rich import print
 from rich.console import Console
 from rich.table import Table
-from rich import print
-from time import sleep
+
+from core import (
+    add_employee_to_database,
+    delete_employee_from_database,
+    get_employee_from_database,
+    get_employees_from_database,
+    update_employee_age,
+    update_employee_wage,
+)
+from models import Employee, Gender
+from operations import validate_age, validate_gender, validate_index, validate_wage
 
 
 def employee_register():
     """Add Employee to database"""
     name: str = str(input("Employee's Name: ")).title()
     age: int = int(input("Employee's Age: "))
-    gender: int = validate_gender("Employee Gender: type 1 to male, 2- for female, 3- for non binary")
+    gender: int = validate_gender(
+        "Employee Gender: type 1 to male, 2- for female, 3- for non binary"
+    )
     wage: float = float(input("Employee's Wage: "))
     if add_employee_to_database(name, age, Gender(gender).name, wage):
         print("Employee was added sucefully")
@@ -96,9 +105,7 @@ def delete_employee():
 
 
 def generate_employee_table(employee: List[Employee]) -> Table:
-    table = Table(
-        title="Employees Database"
-    )
+    table = Table(title="Employees Database")
     headers = [
         "id",
         "name",
@@ -117,14 +124,14 @@ def generate_employee_table(employee: List[Employee]) -> Table:
 
 
 def menu() -> None:
-    print('Selecione uma opção no menu: ')
-    print('1 - Employee register')
+    print("Selecione uma opção no menu: ")
+    print("1 - Employee register")
     print("2 - Employee's list")
-    print('3 - Search employee by id')
-    print('4 - Update Wage')
-    print('5 - Update Age')
-    print('6 - Delete Employee')
-    print('7 - Exit')
+    print("3 - Search employee by id")
+    print("4 - Update Wage")
+    print("5 - Update Age")
+    print("6 - Delete Employee")
+    print("7 - Exit")
 
     option: int = int(input())
 
@@ -141,11 +148,11 @@ def menu() -> None:
     elif option == 6:
         delete_employee()
     elif option == 7:
-        print('Thank You!!')
+        print("Thank You!!")
         sleep(2)
         exit(0)
     else:
-        print('Invalid Operationj')
+        print("Invalid Operationj")
         sleep(2)
         menu()
 

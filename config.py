@@ -1,4 +1,5 @@
 import os
+
 from dynaconf import Dynaconf
 
 settings = Dynaconf(
