@@ -20,7 +20,7 @@ class Employee(SQLModel, table=True):
     age: int
     gender: str
     wage: float
-    admission: datetime = Field(default_factory=datetime.now)
+    admission: Optional[datetime] = Field(default_factory=datetime.now)
 
     @validator("wage")
     def validate_wage(cls, v, field):
