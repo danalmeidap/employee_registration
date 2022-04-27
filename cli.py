@@ -14,10 +14,15 @@ from core import (
     update_employee_wage,
 )
 from models import Employee, Gender
-from operations import validate_age, validate_gender, validate_index, validate_wage
+from operations import (
+    validate_age,
+    validate_gender,
+    validate_index,
+    validate_wage,
+)
 
 
-def employee_register():
+def employee_register() -> None:
     """Add Employee to database"""
     name: str = str(input("Employee's Name: ")).title()
     age: int = int(input("Employee's Age: "))
@@ -33,9 +38,9 @@ def employee_register():
     menu()
 
 
-def employee_list():
+def employee_list() -> None:
     """List employees from database"""
-    employees = get_employees_from_database()
+    employees: List[Employee] = get_employees_from_database()
     if len(employees) > 0:
         table = generate_employee_table(employees)
         console.print(table)
@@ -45,13 +50,13 @@ def employee_list():
     menu()
 
 
-def search_employee_by_id():
+def search_employee_by_id() -> None:
     """Search a employee by id"""
-    employees = get_employees_from_database()
+    employees: List[Employee] = get_employees_from_database()
     if len(employees) > 0:
-        employees_id = validate_index("Index for searching: ")
-        employee = get_employee_from_database(employees_id)
-        table = generate_employee_table(employee)
+        employees_id: int = validate_index("Index for searching: ")
+        employee: List[Employee] = get_employee_from_database(employees_id)
+        table: Table = generate_employee_table(employee)
         console.print(table)
     else:
         print("Employees list is empty")
@@ -59,14 +64,14 @@ def search_employee_by_id():
     menu()
 
 
-def update_wage():
+def update_wage() -> None:
     """Update employee's wage"""
-    employees = get_employees_from_database()
+    employees: List[Employee] = get_employees_from_database()
     if len(employees) > 0:
-        employee_id = validate_index("Index for searching: ")
-        new_wage = validate_wage("New wage: ")
-        employee = update_employee_wage(employee_id, new_wage)
-        table = generate_employee_table(employee)
+        employee_id: int = validate_index("Index for searching: ")
+        new_wage: float = validate_wage("New wage: ")
+        employee: List[Employee] = update_employee_wage(employee_id, new_wage)
+        table: Table = generate_employee_table(employee)
         console.print(table)
     else:
         print("Employees list is empty")
@@ -74,14 +79,14 @@ def update_wage():
     menu()
 
 
-def update_age():
+def update_age() -> None:
     """Update employee's age"""
-    employees = get_employees_from_database()
+    employees: List[Employee] = get_employees_from_database()
     if len(employees) > 0:
-        employee_id = validate_index("Index for searching: ")
-        new_age = validate_age("New wage: ")
-        employee = update_employee_age(employee_id, new_age)
-        table = generate_employee_table(employee)
+        employee_id: int = validate_index("Index for searching: ")
+        new_age: int = validate_age("New wage: ")
+        employee: List[Employee] = update_employee_age(employee_id, new_age)
+        table: Table = generate_employee_table(employee)
         console.print(table)
     else:
         print("Employees list is empty")
@@ -89,11 +94,11 @@ def update_age():
     menu()
 
 
-def delete_employee():
+def delete_employee() -> None:
     """Delete employee from database"""
-    employees = get_employees_from_database()
+    employees: List[Employee] = get_employees_from_database()
     if len(employees) > 0:
-        employee_id = validate_index("Index for searching: ")
+        employee_id: int = validate_index("Index for searching: ")
         if delete_employee_from_database(employee_id):
             print("The employee was deleted")
         else:
@@ -105,8 +110,8 @@ def delete_employee():
 
 
 def generate_employee_table(employee: List[Employee]) -> Table:
-    table = Table(title="Employees Database")
-    headers = [
+    table: Table = Table(title="Employees Database")
+    headers: List[str] = [
         "id",
         "name",
         "age",
@@ -118,7 +123,9 @@ def generate_employee_table(employee: List[Employee]) -> Table:
         table.add_column(header, style="magenta")
     for employee in employee:
         employee.admission = employee.admission.strftime("%Y-%m-%d")
-        values = [str(getattr(employee, header)) for header in headers]
+        values: List[str] = [
+            str(getattr(employee, header)) for header in headers
+        ]
         table.add_row(*values)
     return table
 
