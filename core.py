@@ -1,13 +1,14 @@
 from typing import List
+
 from sqlmodel import select
+
 from database import get_session
 from models import Employee
 
 
-def add_employee_to_database(name: str,
-                             age: int,
-                             gender: str,
-                             wage: float) -> bool:
+def add_employee_to_database(
+    name: str, age: int, gender: str, wage: float
+) -> bool:
     with get_session() as session:
         employee = Employee(**locals())
         session.add(employee)
@@ -48,6 +49,7 @@ def update_employee_age(employee_id: int, new_age: int) -> List[Employee]:
         session.commit()
         return list(session.exec(sql))
 
+
 def delete_employee_from_database(employee_id: int) -> bool:
     with get_session() as session:
         statement = select(Employee).where(Employee.id == employee_id)
@@ -55,4 +57,3 @@ def delete_employee_from_database(employee_id: int) -> bool:
         employee = results.one()
         session.delete(employee)
         return True
-
