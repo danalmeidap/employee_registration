@@ -84,7 +84,7 @@ def update_age() -> None:
     employees: List[Employee] = get_employees_from_database()
     if len(employees) > 0:
         employee_id: int = validate_index("Index for searching: ")
-        new_age: int = validate_age("New wage: ")
+        new_age: int = validate_age("New age: ")
         employee: List[Employee] = update_employee_age(employee_id, new_age)
         table: Table = generate_employee_table(employee)
         console.print(table)
