@@ -27,7 +27,7 @@ def employee_register() -> None:
     name: str = str(input("Employee's Name: ")).title()
     age: int = int(input("Employee's Age: "))
     gender: int = validate_gender(
-        "Employee Gender: type 1 to male, 2- for female, 3- for non binary"
+        "Employee Gender: type 1 for male, 2- for female, 3- for non binary: "
     )
     wage: float = float(input("Employee's Wage: "))
     if add_employee_to_database(name, age, Gender(gender).name, wage):
@@ -131,7 +131,7 @@ def generate_employee_table(employee: List[Employee]) -> Table:
 
 
 def menu() -> None:
-    print("Selecione uma opção no menu: ")
+    print("Select an option below: ")
     print("1 - Employee register")
     print("2 - Employee's list")
     print("3 - Search employee by id")

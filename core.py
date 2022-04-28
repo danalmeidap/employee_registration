@@ -56,4 +56,5 @@ def delete_employee_from_database(employee_id: int) -> bool:
         results = session.exec(statement)
         employee = results.one()
         session.delete(employee)
+        session.commit()
         return True
